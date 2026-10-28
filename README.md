@@ -1,4 +1,4 @@
-# Dataset distillation for vehicle damage classification
+# Dataset Distillation for Vehicle Damage Classification
 
 Capstone project for the MS in Management Information Systems at the University of Illinois Chicago (IDS 507, Fall 2026), sponsored by CCC Intelligent Solutions. Team of three.
 
@@ -36,8 +36,8 @@ Macro-F1 of the distilled set minus the herding picks, in points, over five pair
 | CarDD | 100 | +4.8 [+3.9] | 5 of 5 | +2.2 [+2.2] | 5 of 5 |
 | VehiDE | 50 | +5.8 [+5.9] | 5 of 5 | +4.0 [+3.7] | 5 of 5 |
 
-- On the ConvNet the distilled set beats the herding picks at every budget on both datasets.
-- On ResNet-18 it is at or above the picks on CarDD at every budget. At 50 per class the mean gain misses our twice-the-standard-error rule by 0.04 of a point. On VehiDE it beats the picks on all five seeds.
+- On the ConvNet, the distilled set beats the herding picks at every budget on both datasets.
+- On ResNet-18, it is at or above the picks on CarDD at every budget. At 50 per class the mean gain misses our twice-the-standard-error rule by 0.04 of a point. On VehiDE, it beats the picks on all five seeds.
 - At 100 images per class on CarDD, which is 9.7% of the training crops, the distilled set recovers 84% of full-data macro-F1 on the ConvNet and 83% on ResNet-18. The herding picks recover 78% and 80%.
 - In accuracy the distilled set is ahead of the picks on every seed, on both networks and both datasets, at every budget.
 - Test and validation agree within about a point on every row except the ConvNet at 50 per class, which dropped 1.5 points on test.
@@ -46,12 +46,12 @@ Macro-F1 of the distilled set minus the herding picks, in points, over five pair
 
 - **Starting from noise.** Sets distilled from random noise instead of real crops landed far below the herding picks on both networks (8.4 and 18.9 points below at 50 per class on CarDD).
 - **A large pixel step.** A set distilled with our first learning rate, about 12 times the published step, moved its images much further from the real crops. On validation it kept a ConvNet gain, but on test it was 0.8 points below the picks on the ConvNet and 8.5 below on ResNet-18.
-- **A pixel-change penalty.** We tried charging the distillation for moving each pixel away from its starting crop, which we did not find in the literature. Holding the large step to the same pixel distance as the small step did not produce an equally good set. We report it as a negative result. (validation split)
+- **A pixel-change penalty.** We tried penalizing the distillation for moving each pixel away from its starting crop, which we did not find in the literature. Holding the large step to the same pixel distance as the small step did not produce an equally good set. We report it as a negative result. (validation split)
 - **IDM-style matching** (a queue of partly trained matching networks plus a class-aware term, from Zhao et al., 2023) gave the same outcomes as plain distribution matching and showed no gain at any budget we tried. (validation split)
 
 ## Limitations
 
-- Two damage datasets at 64 by 64 resolution, hard labels only.
+- Two damage datasets at 64x64 resolution, hard labels only.
 - On test, each configuration is one distilled set trained under five seeds. Variation between separate distillation runs was not measured on test.
 - The herding picks themselves scored higher on test than on validation at 50 per class, so part of each difference at that budget moves with the comparison set.
 - Work on a larger benchmark (Tiny ImageNet) is in progress and has no test protocol yet, so it is not reported here.
@@ -66,7 +66,7 @@ Python, PyTorch, torchvision, Google Colab (A100), Git.
 
 ## Reproducing
 
-The code stays in the team's private repository, and both datasets come with their own terms of use, so there is nothing runnable here. I'm happy to walk through the code and the results on a call.
+The code stays in the team's private repository, and both datasets come with their own terms of use, so there is nothing runnable here. I would be happy to walk through the code and the results on a call.
 
 ## References
 
